@@ -1,0 +1,78 @@
+---
+title       : Annual Return Rate Calculator
+subtitle    : Know what the gain really is
+author      : Mike Martinez
+job         : Laborer
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+logo        : pirate.jpg
+---
+
+## Investment Return Rate Calculator
+
+#### Find out what the return is
+
+- You can use this calculator to determine what the annualized rate of return is for any security over ranges of time where data is available.
+
+- The security data is gathered from Yahoo!Finance, so only securities which are accessible from that service can be examined.  Also, only a range of past data is available, so it may not be possible to examine returns over the lifetime of a company.
+
+- Only market open days can be selected as enpoints for calculation
+
+- The adjusted closing price is used for calculation
+
+
+--- .class #slide3 
+
+## Calculations
+
+- The calculator determines the continuous rate of return and then annualizes that rate.  For example, to find the annual return rate for the QQQ security between Oct 11, 2010 and June 20, 2014, the following calcualtions are performed:
+
+
+
+```r
+InitialDate <- as.Date("2010-10-11")
+FinalDate <- as.Date("2014-06-20")
+
+InitialPrice <- QQQ[InitialDate,6]
+FinalPrice <- QQQ[FinalDate,6]
+gain <- as.numeric(FinalPrice) / as.numeric(InitialPrice)
+arr <- gain * 365 / as.numeric(FinalDate - InitialDate)
+format(100*arr,scientific=F,digits=3)
+```
+
+```
+## [1] "52.8"
+```
+
+--- .class #slide4 
+
+## Securities
+
+#### Select a security
+
+Use the drop down list to select a security that is already loaded.
+
+##### Or add a new security
+
+Type into the text box and activate the "Add" button in order to load a new security and add it to the drop down list.  New securities must be available through the Yahoo!Finance service.
+
+--- .class #slide5 
+
+## Time Ranges
+
+Time ranges determine the starting and ending prices that will be used to determine the return, as well as the duration of time that will be annualized.
+
+#### Select a time range
+
+##### The starting date
+
+The starting date selection will be limited to dates where data is available from the Yahoo!Finance service.  If the selected date is not a market day, a weekend or holiday, for example, then the nearest date with an adjusted closing price after the selected starting date will be used for calculations.
+
+##### The ending date
+
+The ending date selection will be limited to dates where data is available from the Yahoo!Finance service.  If the selected date is not a market day then the nearest date with an adjusted closing price prior to the selected date will be used for calculations.
+

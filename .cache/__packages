@@ -1,0 +1,6 @@
+base
+Defaults
+quantmod
+TTR
+xts
+zoo
